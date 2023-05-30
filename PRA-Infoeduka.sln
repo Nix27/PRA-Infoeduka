@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33110.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PRA-Infoeduka", "PRA-Infoeduka\PRA-Infoeduka.csproj", "{FA40539D-1B53-4BD7-BA5F-894B3718D0BA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{D84E09B4-6228-4645-9D4B-BA269B87DEB9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FA40539D-1B53-4BD7-BA5F-894B3718D0BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA40539D-1B53-4BD7-BA5F-894B3718D0BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA40539D-1B53-4BD7-BA5F-894B3718D0BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA40539D-1B53-4BD7-BA5F-894B3718D0BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D84E09B4-6228-4645-9D4B-BA269B87DEB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D84E09B4-6228-4645-9D4B-BA269B87DEB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D84E09B4-6228-4645-9D4B-BA269B87DEB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D84E09B4-6228-4645-9D4B-BA269B87DEB9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CE70280B-E6F8-4770-B9A9-8D8EB6E5156A}
+	EndGlobalSection
+EndGlobal
