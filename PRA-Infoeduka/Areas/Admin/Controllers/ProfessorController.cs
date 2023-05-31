@@ -1,4 +1,5 @@
-﻿using DAL.Repositories.Interfaces;
+﻿using DAL.Models;
+using DAL.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
@@ -25,7 +26,7 @@ namespace PRA_Infoeduka.Areas.Admin.Controllers
         {
             try
             {
-                var professor = _unitOfWork.AppUser.GetFirstOrDefault(x => x.Id == id);
+                var professor = _unitOfWork.AppUser.GetFirstOrDefault(x => x.Id == id, includeProperties: "ProfessorCourses");
 
                 if(professor == null) return NotFound();
 
@@ -36,7 +37,8 @@ namespace PRA_Infoeduka.Areas.Admin.Controllers
                     {
                         Text = c.Name,
                         Value = c.Id.ToString()
-                    })
+                    }),
+                    CurrentCourses = professor.ProfessorCourses.Select(pc => pc.Course)
                 };
 
                 return View(professorVM);
@@ -55,17 +57,37 @@ namespace PRA_Infoeduka.Areas.Admin.Controllers
             {
                 var courses = JsonConvert.DeserializeObject<List<string>>(professorVM.SelectedCourses);
 
-                var professorForUpdate = _unitOfWork.AppUser.GetFirstOrDefault(p => p.Id == professorVM.Professor.Id);
+                var professorForUpdate = _unitOfWork.AppUser.GetFirstOrDefault(p => p.Id == professorVM.Professor.Id, includeProperties: "ProfessorCourses.Course");
 
                 professorForUpdate.FirstName = professorVM.Professor.FirstName;
                 professorForUpdate.LastName = professorVM.Professor.LastName;
                 professorForUpdate.Email = professorVM.Professor.Email;
 
-                return View(professorForUpdate);
+                var coursesForRemove = professorForUpdate.ProfessorCourses.Where(pc => !courses.Contains(pc.CourseId));
+                coursesForRemove.ToList().ForEach(pc => _unitOfWork.ProfessorCourse.Delete(pc));
+
+                var currentCourses = professorForUpdate.ProfessorCourses.Select(pc => pc.Course.Id);
+                var newCourses = courses.Except(currentCourses);
+
+                foreach (var newCourse in newCourses)
+                {
+                    var courseFromDb = _unitOfWork.Course.GetFirstOrDefault(c => c.Id == newCourse);
+                    if (courseFromDb == null) continue;
+
+                    professorForUpdate.ProfessorCourses.Add(new ProfessorCourse
+                    {
+                        Professor = professorForUpdate,
+                        Course = courseFromDb
+                    });
+                }
+
+                _unitOfWork.Save();
+
+                return RedirectToAction("AllProfessors");
             }
             catch
             {
-                return RedirectToAction("AllProfessors");
+                return View(professorVM);
             }
         }
 
@@ -80,6 +102,18 @@ namespace PRA_Infoeduka.Areas.Admin.Controllers
             });
         }
 
-        
+        [HttpDelete]
+        public IActionResult DeleteProfessor(string id)
+        {
+            var professorForDelete = _unitOfWork.AppUser.GetFirstOrDefault(p => p.Id == id);
+
+            if (professorForDelete == null)
+                return Json(new { success = false });
+
+            _unitOfWork.AppUser.Delete(professorForDelete);
+            _unitOfWork.Save();
+
+            return Json(new { success = true });
+        }
     }
 }

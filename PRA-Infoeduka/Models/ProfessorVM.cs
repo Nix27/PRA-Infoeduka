@@ -7,11 +7,8 @@ namespace PRA_Infoeduka.Models
     public class ProfessorVM
     {
         public AppUser Professor { get; set; }
-
-        [ValidateNever]
         public IEnumerable<SelectListItem> Courses { get; set; }
-
-        [ValidateNever]
+        public IEnumerable<Course> CurrentCourses { get; set; }
         public string SelectedCourses { get; set; }
     }
 }

@@ -2,7 +2,7 @@
 
 <form method="post">
     <input asp-for="Professor.Id" hidden />
-    <input id="selected-course-ids" asp-for="SelectedCourses" hidden />
+    <input id="selected-courses-ids" asp-for="SelectedCourses" hidden />
     <div class="mt-4">
         <div class="row mb-2">
             <h2 class="text-primary">Details</h2>
@@ -35,7 +35,7 @@
             </div>
             <div class="mb-3 mt-5">
                 <h3 class="text-primary">Courses</h3>
-                <div id="selected-courses"></div>
+                <div id="selected-courses" class="overflow-scroll"></div>
             </div>
         </div>
     </div>
@@ -45,6 +45,27 @@
     <partial name="_ValidationScriptsPartial" />
 
     <script>
+        let currentCourses = @Html.Raw(Json.Serialize(Model.CurrentCourses));
+
+        $(() => {
+            currentCourses.forEach(function (course) {
+                let courseId = course.Id;
+                let courseName = course.name;
+                let courseElement = $('<div>').addClass('selected-course').attr('data-course-id', courseId).text(courseName);
+                var deleteButton = $('<button>').addClass('btn btn-danger btn-sm').text('Remove');
+
+                deleteButton.on('click', function () {
+                    courseElement.remove();
+                    $('#all-courses').find('option[value="' + courseId + '"]').prop('disabled', false);
+                });
+                courseElement.append(deleteButton);
+
+                $('#selected-courses').append(courseElement);
+
+                $('#all-courses').find('option[value="' + courseId + '"]').prop('disabled', true);
+            });
+        });
+
         $('#all-courses').on('change', function(){
             var courseId = $(this).val();
             var courseName = $(this).find("option:selected").text();
@@ -65,11 +86,11 @@
 
         $('form').on('submit', function(){
             var selectedCourseIds = [];
-            $('#selected-courses').each(function(){
+            $('.selected-course').each(function(){
                 selectedCourseIds.push($(this).data('course-id'));
             });
 
-            $('#selected-course-ids').val(JSON.stringify(selectedCourseIds));
+            $('#selected-courses-ids').val(JSON.stringify(selectedCourseIds));
             return true;
         });
     </script>

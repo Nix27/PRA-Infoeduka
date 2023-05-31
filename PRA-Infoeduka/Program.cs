@@ -5,10 +5,14 @@ using DAL.Repositories.Interfaces;
 using DAL.Repositories;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Utilities;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddControllers().AddJsonOptions(x =>
+    x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+
 builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<DAL.AppDbContext.DbContext>(options => options.UseSqlServer(
