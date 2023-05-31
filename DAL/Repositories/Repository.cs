@@ -44,10 +44,13 @@ namespace DAL.Repositories
                 query = query.Where(filter);
             }
 
-            foreach (var includeProperty in includeProperties.Split
-                (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+            if (includeProperties != null)
             {
-                query = query.Include(includeProperty);
+                foreach (var includeProperty in includeProperties.Split
+                        (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProperty);
+                } 
             }
 
             return query.ToList();
@@ -56,11 +59,14 @@ namespace DAL.Repositories
         public T GetFirstOrDefault(System.Linq.Expressions.Expression<Func<T, bool>> filter, string? includeProperties = null)
         {
             IQueryable<T> query = _dbSet;
-           
-            foreach (var includeProperty in includeProperties.Split
-                (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+
+            if (includeProperties != null)
             {
-                query = query.Include(includeProperty);
+                foreach (var includeProperty in includeProperties.Split
+                        (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProperty);
+                } 
             }
 
             query = query.Where(filter);

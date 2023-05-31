@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -13,6 +14,7 @@ namespace DAL.Models
         [Key]
         [StringLength(450)]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [ValidateNever]
         public string Id { get; set; }
 
         [Required]
@@ -24,7 +26,9 @@ namespace DAL.Models
         [Required]
         public int Exercises { get; set; }
 
+        [ValidateNever]
         public ICollection<ProfessorCourse> ProfessorCourses { get; set; }
+        [ValidateNever]
         public ICollection<Notification> Notifications { get; set; }
     }
 }
