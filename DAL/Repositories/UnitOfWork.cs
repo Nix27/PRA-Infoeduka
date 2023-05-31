@@ -14,6 +14,10 @@ namespace DAL.Repositories
         public UnitOfWork(AppDbContext.DbContext dbContext)
         {
             _dbContext = dbContext;
+            Course = new CourseRepository(dbContext);
+            Notification = new NotificationRepository(dbContext);
+            AppUser = new AppUserRepository(dbContext);
+            ProfessorCourse = new ProfessorCourseRepository(dbContext);
         }
 
         public ICourseRepository Course

@@ -4,6 +4,7 @@ using System.Diagnostics;
 
 namespace PRA_Infoeduka.Areas.Professor.Controllers
 {
+    [Area("Professor")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
