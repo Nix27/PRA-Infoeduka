@@ -3,10 +3,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using DAL.Repositories.Interfaces;
 using DAL.Repositories;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Utilities;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<DAL.AppDbContext.DbContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("DefaultConnection")    
@@ -16,6 +19,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddDefaultTokenProvid
     .AddEntityFrameworkStores<DAL.AppDbContext.DbContext>();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddSingleton<IEmailSender, EmailSender>();
 
 var app = builder.Build();
 
@@ -35,6 +39,7 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.MapRazorPages();
 app.MapControllerRoute(
     name: "default",
     pattern: "{area=Professor}/{controller=Home}/{action=Index}/{id?}");

@@ -1,0 +1,25 @@
+﻿<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Professors</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-primary"><i class="bi bi-plus-circle"></i> &nbsp; New professor</a>
+        </div>
+    </div>
+    <br /><br />
+    <table id="tblProfessors" class="table table-bordered table-striped" style="width: 100%">
+        <thead>
+            <tr>
+                <th>First name</th>
+                <th>Last name</th>
+                <th>E-mail</th>
+                <th></th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+@section Scripts {
+    <script src="~/js/Professor.js"></script>
+} 

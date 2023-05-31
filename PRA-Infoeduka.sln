@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PRA-Infoeduka", "PRA-Infoeduka\PRA-Infoeduka.csproj", "{FA40539D-1B53-4BD7-BA5F-894B3718D0BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PRA-Infoeduka", "PRA-Infoeduka\PRA-Infoeduka.csproj", "{FA40539D-1B53-4BD7-BA5F-894B3718D0BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{D84E09B4-6228-4645-9D4B-BA269B87DEB9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "DAL\DAL.csproj", "{D84E09B4-6228-4645-9D4B-BA269B87DEB9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utilities", "Utilities\Utilities.csproj", "{B10920DE-3303-4E3F-B125-7CD82BA7BF9B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{D84E09B4-6228-4645-9D4B-BA269B87DEB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D84E09B4-6228-4645-9D4B-BA269B87DEB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D84E09B4-6228-4645-9D4B-BA269B87DEB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B10920DE-3303-4E3F-B125-7CD82BA7BF9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B10920DE-3303-4E3F-B125-7CD82BA7BF9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B10920DE-3303-4E3F-B125-7CD82BA7BF9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B10920DE-3303-4E3F-B125-7CD82BA7BF9B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

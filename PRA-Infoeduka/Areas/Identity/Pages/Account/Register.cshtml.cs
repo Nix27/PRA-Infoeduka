@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using Utilities;
 
 namespace PRA_Infoeduka.Areas.Identity.Pages.Account
 {
@@ -111,14 +112,14 @@ namespace PRA_Infoeduka.Areas.Identity.Pages.Account
 
         public async Task OnGetAsync(string returnUrl = null)
         {
-            if (!_roleManager.RoleExistsAsync("Admin").GetAwaiter().GetResult())
+            if (!_roleManager.RoleExistsAsync(Constants.ADMIN_ROLE).GetAwaiter().GetResult())
             {
-                _roleManager.CreateAsync(new IdentityRole("Admin")).GetAwaiter().GetResult();
+                _roleManager.CreateAsync(new IdentityRole(Constants.ADMIN_ROLE)).GetAwaiter().GetResult();
             }
 
-            if (!_roleManager.RoleExistsAsync("Professor").GetAwaiter().GetResult())
+            if (!_roleManager.RoleExistsAsync(Constants.PROFESSOR_ROLE).GetAwaiter().GetResult())
             {
-                _roleManager.CreateAsync(new IdentityRole("Professor")).GetAwaiter().GetResult();
+                _roleManager.CreateAsync(new IdentityRole(Constants.PROFESSOR_ROLE)).GetAwaiter().GetResult();
             }
 
             ReturnUrl = returnUrl;
@@ -127,7 +128,7 @@ namespace PRA_Infoeduka.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl ??= Url.Content("~/");
+            returnUrl ??= Url.Content("~/Admin/Professor/AllProfessors");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
@@ -144,7 +145,7 @@ namespace PRA_Infoeduka.Areas.Identity.Pages.Account
                 {
                     _logger.LogInformation("User created a new account with password.");
 
-                    await _userManager.AddToRoleAsync(user, "Admin");
+                    await _userManager.AddToRoleAsync(user, Constants.PROFESSOR_ROLE);
 
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);

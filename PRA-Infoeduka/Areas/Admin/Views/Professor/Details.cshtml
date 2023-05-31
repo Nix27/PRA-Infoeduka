@@ -1,0 +1,76 @@
+﻿@model ProfessorVM
+
+<form method="post">
+    <input asp-for="Professor.Id" hidden />
+    <input id="selected-course-ids" asp-for="SelectedCourses" hidden />
+    <div class="mt-4">
+        <div class="row mb-2">
+            <h2 class="text-primary">Details</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div class="mb-3">
+                <label asp-for="Professor.FirstName"></label>
+                <input asp-for="Professor.FirstName" class="form-control border border-1 border-dark" />
+                <span asp-validation-for="Professor.FirstName" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Professor.LastName"></label>
+                <input asp-for="Professor.LastName" class="form-control border border-1 border-dark" />
+                <span asp-validation-for="Professor.LastName" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Professor.Email"></label>
+                <input asp-for="Professor.Email" class="form-control border border-1 border-dark" />
+                <span asp-validation-for="Professor.Email" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-dark" style="width:100px">Update</button>
+            <a asp-area="Admin" asp-controller="Professor" asp-action="AllProfessors" class="btn btn-light" style="width:100px">Back</a>
+        </div>
+        <div class="col-6">
+            <div class="mb-3">
+                <label>Add course</label>
+                <select id="all-courses" asp-items="@Model.Courses" class="form-control border border-1 border-dark"></select>
+            </div>
+            <div class="mb-3 mt-5">
+                <h3 class="text-primary">Courses</h3>
+                <div id="selected-courses"></div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        $('#all-courses').on('change', function(){
+            var courseId = $(this).val();
+            var courseName = $(this).find("option:selected").text();
+            var courseElement = $('<div>').addClass('selected-course').attr('data-course-id', courseId).text(courseName);
+            var deleteButton = $('<button>').addClass('btn btn-danger btn-sm').text('Delete');
+
+            deleteButton.on('click', function(){
+                courseElement.remove();
+                $('#all-courses').find('option[value="' + courseId + '"]').prop('disabled', false);
+            });
+
+            courseElement.append(deleteButton);
+
+            $('#selected-courses').append(courseElement);
+
+            $(this).find('option[value="' + courseId + '"]').prop('disabled', true);
+        });
+
+        $('form').on('submit', function(){
+            var selectedCourseIds = [];
+            $('#selected-courses').each(function(){
+                selectedCourseIds.push($(this).data('course-id'));
+            });
+
+            $('#selected-course-ids').val(JSON.stringify(selectedCourseIds));
+            return true;
+        });
+    </script>
+}

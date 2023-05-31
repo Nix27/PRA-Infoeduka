@@ -16,3 +16,8 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.selected-course{
+    display: flex;
+    justify-content: space-between;
+}
