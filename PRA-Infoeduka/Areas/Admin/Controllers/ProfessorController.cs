@@ -1,9 +1,11 @@
 ﻿using DAL.Models;
 using DAL.Repositories.Interfaces;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using PRA_Infoeduka.Models;
+using Utilities;
 
 namespace PRA_Infoeduka.Areas.Admin.Controllers
 {
@@ -12,7 +14,8 @@ namespace PRA_Infoeduka.Areas.Admin.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public ProfessorController(IUnitOfWork unitOfWork)
+        public ProfessorController(
+            IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }

@@ -6,6 +6,7 @@ using DAL.Repositories;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Utilities;
 using System.Text.Json.Serialization;
+using DAL.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +26,13 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddDefaultTokenProvid
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddSingleton<IEmailSender, EmailSender>();
 
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = $"/Identity/Account/Login";
+    options.LogoutPath = $"/Identity/Account/Logout";
+    options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -41,6 +49,22 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthentication();
+
+app.Use(async (context, next) =>
+{
+    if (!context.User.Identity.IsAuthenticated &&
+        !context.Request.Path.Value.StartsWith("/Identity/Account/Login"))
+    {
+        if (!context.Request.Path.Value.StartsWith("/Identity/Account/Login"))
+        {
+            context.Response.Redirect("/Identity/Account/Login");
+            return;
+        }
+    }
+
+    await next.Invoke();
+});
+
 app.UseAuthorization();
 
 app.MapRazorPages();

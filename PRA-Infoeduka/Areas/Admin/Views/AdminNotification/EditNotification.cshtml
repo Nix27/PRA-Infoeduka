@@ -1,0 +1,46 @@
+﻿@model NotificationVM
+
+<form method="post">
+    <input asp-for="Notification.Id" hidden />
+    <div class="mt-4">
+        <div class="row mb-2">
+            <h2 class="text-primary">Edit notification</h2>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div class="mb-3">
+                    <label asp-for="Notification.Title"></label>
+                    <input asp-for="Notification.Title" class="form-control border border-1 border-dark" />
+                    <span asp-validation-for="Notification.Title" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Notification.ExpirationDate"></label>
+                    <input asp-for="Notification.ExpirationDate" class="form-control border border-1 border-dark" />
+                    <span asp-validation-for="Notification.ExpirationDate" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Notification.CourseId"></label>
+                    <select asp-for="Notification.CourseId" asp-items="@Model.Courses" class="form-control border border-1 border-dark">
+                        <option disabled></option>
+                    </select>
+                    <span asp-validation-for="Notification.CourseId" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="mb-3">
+                    <label asp-for="Notification.Description"></label>
+                    <textarea asp-for="Notification.Description" class="form-control border border-1 border-dark" style="height: 200px"></textarea>
+                    <span asp-validation-for="Notification.Description" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-dark" style="width:150px">Send</button>
+        <a asp-area="Admin" asp-controller="AdminNotification" asp-action="AllNotifications" class="btn btn-light" style="width:150px">Back</a>
+    </div>
+</form>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
