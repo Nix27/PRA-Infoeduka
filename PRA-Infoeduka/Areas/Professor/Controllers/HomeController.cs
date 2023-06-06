@@ -22,7 +22,10 @@ namespace PRA_Infoeduka.Areas.Professor.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var allNotifications = _unitOfWork.Notification.GetAll(includeProperties: "Course,User");
+
+
+            return View(allNotifications);
         }
 
         public IActionResult CreateNotification()
