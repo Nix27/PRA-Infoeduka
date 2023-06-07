@@ -1,0 +1,17 @@
+﻿@model Notification
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="d-flex justify-content-between flex-column">
+            <div>
+                <h2 class="text-primary">@Model.Course.Name - @Model.Title</h2>
+            </div>
+            <div>
+                @Model.Description
+            </div>
+            <div class="d-flex justify-content-between">
+                <span>@Model.User.FirstName @Model.User.LastName</span>
+                <span>@Model.PublishedDate</span>
+            </div>
+        </div>
+    </div>
+</div>
