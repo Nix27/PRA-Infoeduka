@@ -24,7 +24,6 @@ namespace PRA_Infoeduka.Areas.Professor.Controllers
         {
             var allNotifications = _unitOfWork.Notification.GetAll(includeProperties: "Course,User");
 
-
             return View(allNotifications);
         }
 
