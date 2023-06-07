@@ -1,4 +1,5 @@
-﻿using DAL.Repositories.Interfaces;
+﻿using DAL.Models;
+using DAL.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.Operations;
@@ -39,6 +40,13 @@ namespace PRA_Infoeduka.Areas.Professor.Controllers
             };
 
             return View(notificationVM);
+        }
+
+        public IActionResult ShowMore(int id)
+        {
+            Notification notification = _unitOfWork.Notification.GetFirstOrDefault(c => c.Id == id, includeProperties: "Course,User");
+
+            return View(notification);
         }
 
         [HttpPost]
