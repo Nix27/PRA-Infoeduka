@@ -31,7 +31,9 @@
         <div class="col-6">
             <div class="mb-3">
                 <label>Add course</label>
-                <select id="all-courses" asp-items="@Model.Courses" class="form-control border border-1 border-dark"></select>
+                <select id="all-courses" asp-items="@Model.Courses" class="form-control border border-1 border-dark">
+                    <option selected disabled>-- Select --</option>
+                </select>
             </div>
             <div class="mb-3 mt-5">
                 <h3 class="text-primary">Courses</h3>
@@ -52,7 +54,7 @@
                 let courseId = course.Id;
                 let courseName = course.name;
                 let courseElement = $('<div>').addClass('selected-course').attr('data-course-id', courseId).text(courseName);
-                var deleteButton = $('<button>').addClass('btn btn-danger btn-sm').text('Remove');
+                var deleteButton = $('<button>').addClass('btn btn-danger btn-sm').text('Delete');
 
                 deleteButton.on('click', function () {
                     courseElement.remove();
