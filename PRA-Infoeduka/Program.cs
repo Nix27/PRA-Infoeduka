@@ -20,7 +20,7 @@ builder.Services.AddDbContext<DAL.AppDbContext.DbContext>(options => options.Use
     builder.Configuration.GetConnectionString("DefaultConnection")    
 ));
 
-builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddDefaultTokenProviders()
+builder.Services.AddIdentity<AppUser, IdentityRole>().AddDefaultTokenProviders()
     .AddEntityFrameworkStores<DAL.AppDbContext.DbContext>();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();

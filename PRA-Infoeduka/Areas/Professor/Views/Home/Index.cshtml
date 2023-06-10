@@ -20,7 +20,11 @@
                             <h5 class="card-header py-3">@notification.Course.Name - @notification.Title</h5>
                             <div class="card-body d-flex justify-content-between flex-column">
                                 <div class="pl-1">
-                                    <p class="card-title  text-primary">@notification.Description</p>
+                                    @{
+                                        var descLength = notification.Description.Length;
+                                        var description = descLength <= 130 ? notification.Description : notification.Description.Substring(0, 130) + "...";
+                                    }
+                                    <p class="card-title  text-primary">@description</p>
                                 </div>
                                 <a asp-action="ShowMore" asp-route-id="@notification.Id" style="text-decoration:none">More...</a>
                             </div>

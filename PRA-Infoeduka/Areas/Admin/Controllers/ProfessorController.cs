@@ -13,11 +13,14 @@ namespace PRA_Infoeduka.Areas.Admin.Controllers
     public class ProfessorController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly UserManager<AppUser> _userManager;
 
         public ProfessorController(
-            IUnitOfWork unitOfWork)
+            IUnitOfWork unitOfWork,
+            UserManager<AppUser> userManager)
         {
             _unitOfWork = unitOfWork;
+            _userManager = userManager;
         }
 
         public IActionResult AllProfessors()
@@ -97,7 +100,7 @@ namespace PRA_Infoeduka.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult GetAllProfessors()
         {
-            var allProfessors = _unitOfWork.AppUser.GetAll();
+            var allProfessors = _userManager.GetUsersInRoleAsync(Constants.PROFESSOR_ROLE).GetAwaiter().GetResult();
 
             return Json(new
             {
