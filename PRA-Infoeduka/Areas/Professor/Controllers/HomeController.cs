@@ -23,7 +23,7 @@ namespace PRA_Infoeduka.Areas.Professor.Controllers
 
         public IActionResult Index()
         {
-            var allNotifications = _unitOfWork.Notification.GetAll(includeProperties: "Course,User");
+            var allNotifications = _unitOfWork.Notification.GetAll(n => DateTime.Now <= n.ExpirationDate, includeProperties: "Course,User");
 
             return View(allNotifications);
         }

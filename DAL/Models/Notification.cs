@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -25,6 +26,7 @@ namespace DAL.Models
         [ValidateNever]
         public AppUser User { get; set; }
 
+        [DisplayName("Course")]
         public string CourseId { get; set; }
         [ForeignKey("CourseId")]
         [ValidateNever]

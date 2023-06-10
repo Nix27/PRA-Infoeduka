@@ -18,8 +18,8 @@
                 </div>
                 <div class="mb-3">
                     <label asp-for="Notification.CourseId"></label>
-                    <select asp-for="Notification.CourseId" asp-items="@Model.Courses" class="form-control border border-1 border-dark">
-                        <option disabled></option>
+                    <select asp-for="Notification.CourseId" asp-items="@Model.Courses" class="form-select border border-1 border-dark">
+                        <option disabled selected>-- Select --</option>
                     </select>
                     <span asp-validation-for="Notification.CourseId" class="text-danger"></span>
                 </div>
